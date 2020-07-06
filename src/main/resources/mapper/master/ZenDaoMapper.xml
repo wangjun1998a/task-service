@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joinbright.taskservice.mapper.master.ZenDaoMapper">
+    <insert id="insertAllUser">
+        insert into tbl_system_user (guid, email, system_name, user_id, create_time)
+        values
+        <foreach item="user" collection="map" separator=",">
+            (UUID(),#{user.email},'zendao',#{user.account},now())
+        </foreach>
+        ;
+    </insert>
+    <update id="updateUser">
+        <foreach item="userInfo" collection="updateMap" separator=";">
+            update tbl_system_user
+            <set>
+                email = #{userInfo.email}
+            </set>
+            where user_id = #{userInfo.account}
+            and system_name = 'zendao'
+        </foreach>
+    </update>
+    <delete id="deleteUser">
+        delete from tbl_system_user where system_name = 'zendao' and email in
+        <foreach collection="deleteMap" item="userInfo" separator="," open="(" close=")">
+            #{userInfo.email}
+        </foreach>
+    </delete>
+    <select id="getAllUsers" resultType="com.joinbright.taskservice.dto.SystemUserIdDTO">
+        select guid        as guid,
+               email       as email,
+               system_name as systemName,
+               user_id     as userId,
+               create_time as createTime,
+               update_time as updateTime,
+               remark      as remark
+        from tbl_system_user tsu
+        where system_name = 'zendao';
+    </select>
+</mapper>

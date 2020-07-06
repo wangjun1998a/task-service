@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joinbright.taskservice.mapper.zentao.ZenTaoMapper">
+    <select id="searchAllUser" resultType="com.joinbright.taskservice.dto.ZenTaoUserDTO">
+        select id       as id,
+               account  as account,
+               realname as realName,
+               email    as email
+        from zt_user
+        where account is not null
+          and account != '';
+    </select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joinbright.taskservice.mapper.second.SecondMapper">
+    <select id="searchAllF1Users" resultType="com.joinbright.taskservice.dto.F1SysPersonDTO">
+        select guid         as guid,
+               pers_name    as personName,
+               logo_id      as logoId,
+               mobile_phone as mobilePhone,
+               email        as email
+        from us_sys.tb_sys_person
+        where logo_id != ''
+          and logo_id is not null;
+    </select>
+</mapper>
